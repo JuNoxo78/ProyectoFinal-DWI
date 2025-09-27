@@ -20,16 +20,12 @@ public class Entrada {
     @Column(nullable = false)
     private String codigoEntrada;
 
-    @Column(nullable = false)
     private String pelicula;
 
-    @Column(nullable = false)
     private LocalTime horario;
 
-    @Column(nullable = false)
     private LocalDateTime fechaCompra;
 
-    @Column(nullable = false)
     private String estado;
 
     private String metodoPago;
