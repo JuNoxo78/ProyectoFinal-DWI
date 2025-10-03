@@ -1,32 +1,36 @@
 package org.example.proyectofinaldwi.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.math.BigDecimal;
 
-@Data
 @Entity
 @Table(name = "entradas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Entrada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "entrada_id")
+    private Long entradaId;
 
-    @Column(nullable = false)
-    private long idUsuario;
+    @Column(name = "reserva_id", nullable = false)
+    private Long reservaId;
 
-    @Column(nullable = false)
+    @Column(name = "codigo_entrada", nullable = false, unique = true)
     private String codigoEntrada;
 
-    private String pelicula;
+    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precio;
 
-    private LocalTime horario;
-
-    private LocalDateTime fechaCompra;
-
-    private String estado;
-
-    private String metodoPago;
+    // Relación muchos a uno con Reserva
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reserva_id", insertable = false, updatable = false)
+    private Reserva reserva;
 }

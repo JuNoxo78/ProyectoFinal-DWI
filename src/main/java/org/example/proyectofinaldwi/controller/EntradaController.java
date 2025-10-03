@@ -31,12 +31,14 @@ public class EntradaController {
 
     @PostMapping
     public ResponseEntity<?> createEntrada(@RequestBody Entrada entrada) {
-        if (entrada.getIdUsuario() == 0) {
-            return ResponseEntity.badRequest().body("El campo 'idUsuario' es obligatorio");
+        if (entrada.getReservaId() == null) {
+            return ResponseEntity.badRequest().body("El campo 'reservaId' es obligatorio");
         }
+
         if (entrada.getCodigoEntrada() == null || entrada.getCodigoEntrada().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El campo 'codigoEntrada' es obligatorio");
         }
+
         return ResponseEntity.ok(entradaService.save(entrada));
     }
 

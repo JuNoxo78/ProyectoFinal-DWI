@@ -1,8 +1,6 @@
 package org.example.proyectofinaldwi.service;
 
-import org.example.proyectofinaldwi.model.Entrada;
 import org.example.proyectofinaldwi.model.Usuario;
-import org.example.proyectofinaldwi.repository.EntradaRepository;
 import org.example.proyectofinaldwi.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,7 @@ public class UsuarioService {
     }
 
     public Usuario update(Long id, Usuario usuario) {
-        usuario.setId(id);
+        usuario.setUsuarioId(id);
         return usuarioRepository.save(usuario);
     }
 

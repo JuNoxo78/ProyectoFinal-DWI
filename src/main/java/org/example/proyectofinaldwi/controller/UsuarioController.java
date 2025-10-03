@@ -1,6 +1,5 @@
 package org.example.proyectofinaldwi.controller;
 
-import org.example.proyectofinaldwi.model.Entrada;
 import org.example.proyectofinaldwi.model.Usuario;
 import org.example.proyectofinaldwi.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -32,14 +31,17 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
-        if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
+        if (usuario.getNombres() == null || usuario.getNombres().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El campo 'codigoEntrada' es obligatorio");
         }
-        if (usuario.getApellido() == null || usuario.getApellido().trim().isEmpty()) {
+        if (usuario.getApellidos() == null || usuario.getApellidos().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El campo 'apellido' es obligatorio");
         }
         if (usuario.getPassword() == null || usuario.getPassword().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El campo 'password' es obligatorio");
+        }
+        if (usuario.getDni() == null || usuario.getDni().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("El campo 'dni' es obligatorio");
         }
 
         return ResponseEntity.ok(usuarioService.save(usuario));

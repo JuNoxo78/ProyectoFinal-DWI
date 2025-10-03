@@ -29,7 +29,7 @@ public class EntradaService {
     }
 
     public Entrada update(Long id, Entrada entrada) {
-        entrada.setId(id);
+        entrada.setEntradaId(id);
         return entradaRepository.save(entrada);
     }
 
