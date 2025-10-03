@@ -36,22 +36,6 @@ public class ReservaService {
         BigDecimal precioTotal = precioPorEntrada.multiply(BigDecimal.valueOf(reserva.getCantidadEntradas()));
         reserva.setPrecioTotal(precioTotal);
 
-        // Generar las entradas automáticamente según la cantidad especificada
-        if (reserva.getEntradas() == null) {
-            reserva.setEntradas(new ArrayList<>());
-        }
-
-        // Generar las entradas
-        for (int i = 1; i <= reserva.getCantidadEntradas(); i++) {
-            Entrada entrada = Entrada.builder()
-                .codigoEntrada(generarCodigoEntrada())
-                .precio(precioPorEntrada)
-                .reservaId(null) // Se asignará automáticamente después de guardar
-                .build();
-
-            reserva.getEntradas().add(entrada);
-        }
-
         return reservaRepository.save(reserva);
     }
 
@@ -62,10 +46,5 @@ public class ReservaService {
 
     public void deleteById(Long id) {
         reservaRepository.deleteById(id);
-    }
-
-    // Método auxiliar para generar códigos únicos de entrada
-    private String generarCodigoEntrada() {
-        return "ENT-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 }

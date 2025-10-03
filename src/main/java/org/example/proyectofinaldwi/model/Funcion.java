@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "funcion")
+@Table(name = "funciones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

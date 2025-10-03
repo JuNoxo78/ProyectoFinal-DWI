@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "reserva")
+@Table(name = "reservas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -52,7 +52,7 @@ public class Reserva {
     private Funcion funcion;
 
     // Relación uno a muchos con Entrada
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id")
     private List<Entrada> entradas;
 }
