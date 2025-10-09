@@ -52,6 +52,7 @@ public class ReservaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
+
         if (reservaService.findById(id).isPresent()) {
             return ResponseEntity.ok(reservaService.update(id, reserva));
         }

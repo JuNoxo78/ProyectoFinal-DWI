@@ -5,7 +5,9 @@ import org.example.proyectofinaldwi.service.EntradaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/entradas")
@@ -34,9 +36,8 @@ public class EntradaController {
         if (entrada.getReservaId() == null) {
             return ResponseEntity.badRequest().body("El campo 'reservaId' es obligatorio");
         }
-
-        if (entrada.getCodigoEntrada() == null || entrada.getCodigoEntrada().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("El campo 'codigoEntrada' es obligatorio");
+        if (entrada.getPrecio() != null && entrada.getPrecio().compareTo(BigDecimal.ZERO) <= 0) {
+            return ResponseEntity.badRequest().body("El precio debe ser mayor a 0");
         }
 
         return ResponseEntity.ok(entradaService.save(entrada));
