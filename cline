@@ -1,0 +1,35 @@
+[33mcommit 0ff316db8299e006ca920b44c6a1857487c01739[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Wed Oct 8 21:49:34 2025 -0500
+
+    first to fix
+
+[33mcommit d9bb07c1079503012728f88d6543205f02fa4e96[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Fri Oct 3 17:25:04 2025 -0500
+
+    some fixes
+
+[33mcommit f4af85be06d4b021f54ec568b4ac56be20e941fa[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Fri Oct 3 16:10:49 2025 -0500
+
+    add Funcion, Reserva, Pelicula entities
+
+[33mcommit e77dfca2300c5f336062119279f0af35b0096caa[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Sat Sep 27 10:17:55 2025 -0500
+
+    adding first api services
+
+[33mcommit 6322ef4b6d1286297fb2bb72e18a82ebb19e1bd5[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Sat Sep 27 03:23:41 2025 -0500
+
+    adding entrada,usuario entity + jpa
+
+[33mcommit 91816da566a45afc9b5d3f32f905ab5941b263fb[m
+Author: Juan López <juanandrelopezcordova8@gmail.com>
+Date:   Sat Sep 27 00:22:41 2025 -0500
+
+    first commit
