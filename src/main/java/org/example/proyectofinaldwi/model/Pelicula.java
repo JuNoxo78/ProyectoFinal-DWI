@@ -1,5 +1,6 @@
 package org.example.proyectofinaldwi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +39,6 @@ public class Pelicula {
 
     // Relación uno a muchos con Función
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Funcion> funciones;
 }
