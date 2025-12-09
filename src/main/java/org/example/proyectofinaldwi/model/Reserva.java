@@ -1,5 +1,6 @@
 package org.example.proyectofinaldwi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,15 +45,18 @@ public class Reserva {
     // Relación muchos a uno con Usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    @JsonIgnore
     private Usuario usuario;
 
     // Relación muchos a uno con Funcion
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "funcion_id", insertable = false, updatable = false)
+    @JsonIgnore
     private Funcion funcion;
 
     // Relación uno a muchos con Entrada
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id")
+    @JsonIgnore
     private List<Entrada> entradas;
 }

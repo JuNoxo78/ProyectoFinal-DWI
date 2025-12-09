@@ -2,7 +2,6 @@ package org.example.proyectofinaldwi.service;
 
 import org.example.proyectofinaldwi.model.Entrada;
 import org.example.proyectofinaldwi.repository.EntradaRepository;
-import org.hibernate.service.spi.InjectService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -58,6 +57,6 @@ public class EntradaService {
     }
 
     public List<Entrada> findByReservaId(Long reservaId) {
-        return entradaRepository.findByReserva_ReservaId(reservaId);
+        return entradaRepository.findByReservaId(reservaId);
     }
 }
