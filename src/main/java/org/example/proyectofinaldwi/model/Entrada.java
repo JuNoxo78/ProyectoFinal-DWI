@@ -30,6 +30,9 @@ public class Entrada {
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
+    @Column(name = "codigo_butaca", nullable = false)
+    private String codigoButaca;
+
     // Relación muchos a uno con Reserva
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id", insertable = false, updatable = false)

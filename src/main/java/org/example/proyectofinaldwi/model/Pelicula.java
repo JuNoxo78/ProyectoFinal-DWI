@@ -37,6 +37,12 @@ public class Pelicula {
     @Column(name = "url_portada", length = 500)
     private String urlPortada;  // ← URL de la imagen
 
+    @Column(name = "url_trailer", length = 500)
+    private String urlTrailer;
+
+    @Column(name = "sinopsis", length = 1000)
+    private String sinopsis;
+
     // Relación uno a muchos con Función
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
