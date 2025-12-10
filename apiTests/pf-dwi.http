@@ -1,0 +1,189 @@
+#### Crear un nuevo usuario
+POST http://localhost:8083/api/usuarios
+Content-Type: application/json
+
+
+{
+  "nombres": "Juan Carlos",
+  "apellidos": "Perez Garcia",
+  "password": "12345",
+  "dni": "12345678",
+  "email": "juan.perez@gmail.com",
+  "telefono": "987654321",
+  "estado": "activo"
+}
+
+<> 2025-12-08T233928.200.json
+<> 2025-12-08T233752.200.json
+<> 2025-10-18T122900.200.json
+<> 2025-10-18T122823.500.json
+<> 2025-10-18T122822.200.json
+
+### Crear una nueva película
+POST http://localhost:8083/api/peliculas
+Content-Type: application/json
+
+{
+  "nombre": "Inception",
+  "duracion": 148,
+  "genero": "Ciencia Ficción",
+  "clasificacion": "PG-13",
+  "urlPortada": "https://example.com/inception.jpg"
+}
+
+<> 2025-12-08T233944.200.json
+<> 2025-10-18T123001.200.json
+<> 2025-10-18T122822-1.200.json
+
+### Crear una nueva función
+POST http://localhost:8083/api/funciones
+Content-Type: application/json
+
+{
+  "fecha": "2025-10-05",
+  "horario": "18:30:00",
+  "numeroSala": 3,
+  "peliculaId": 1
+}
+
+<> 2025-12-08T234020.200.json
+<> 2025-12-08T233950.500.json
+<> 2025-10-18T123130.200.json
+<> 2025-10-18T123054.500.json
+<> 2025-10-18T123030.500.json
+<> 2025-10-18T122823.200.json
+
+### Crear una nueva reserva
+POST http://localhost:8083/api/reservas
+Content-Type: application/json
+
+{
+  "cantidadEntradas": 2,
+  "usuarioId": 1,
+  "funcionId": 2,
+  "fechaCompra": "2025-10-03T16:45:00",
+  "metodoPago": "tarjeta"
+}
+
+<> 2025-12-08T235917.200.json
+<> 2025-10-18T123231.200.json
+<> 2025-10-18T122824.200.json
+
+###
+
+### Modificar un usuario existente
+PUT http://localhost:8083/api/usuarios/1
+Content-Type: application/json
+
+{
+  "nombres": "Juan Andre",
+  "apellidos": "Lopez Cordova",
+  "password": "12345",
+  "dni": "72134465",
+  "email": "juan.perez@gmail.com",
+  "telefono": "987654321",
+  "estado": "activo",
+  "fechaRegistro": "2025-10-03T16:31:50"
+}
+
+<> 2025-12-08T235940.200.json
+<> 2025-10-18T122825.200.json
+
+### Modificar una película existente
+PUT http://localhost:8083/api/peliculas/1
+Content-Type: application/json
+
+{
+  "nombre": "Inception 2",
+  "duracion": 168,
+  "genero": "Ciencia Ficción",
+  "clasificacion": "PG-13",
+  "urlPortada": "https://example.com/inception.jpg"
+}
+
+<> 2025-12-08T235950.200.json
+<> 2025-10-18T122826.200.json
+
+### Modificar una función existente
+PUT http://localhost:8083/api/funciones/2
+Content-Type: application/json
+
+{
+  "fecha": "2025-10-08",
+  "horario": "19:30:00",
+  "numeroSala": 4,
+  "peliculaId": 1
+}
+
+<> 2025-12-09T000238.200.json
+<> 2025-10-18T122827.200.json
+
+### Modificar una reserva existente
+PUT http://localhost:8083/api/reservas/1
+Content-Type: application/json
+
+{
+  "cantidadEntradas": 5,
+  "usuarioId": 1,
+  "funcionId": 2,
+  "fechaCompra": "2025-10-03T16:45:00",
+  "metodoPago": "tarjeta"
+}
+
+<> 2025-12-09T000308.200.json
+<> 2025-10-18T123339.200.json
+<> 2025-10-18T122827-1.200.json
+
+### Eliminar una reserva
+DELETE http://localhost:8083/api/reservas/2
+
+### Eliminar un usuario
+DELETE http://localhost:8083/api/usuarios/1
+
+### Eliminar una función
+DELETE http://localhost:8083/api/funciones/1
+
+### Eliminar una película
+DELETE http://localhost:8083/api/peliculas/1
+
+### Registrar un nuevo usuario (endpoint de autenticación)
+POST http://localhost:8083/api/auth/register
+Content-Type: application/json
+
+{
+  "dni": "12345678",
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "password": "contraseña123",
+  "email": "juan@email.com",
+  "telefono": "987654321"
+}
+
+<> 2025-12-09T191950.200.json
+
+### Iniciar sesión de un usuario (endpoint de autenticación)
+POST http://localhost:8083/api/auth/login
+Content-Type: application/json
+
+{
+  "dni": "12345678",
+  "password": "contraseña123"
+}
+
+<> 2025-12-09T192045.200.json
+
+### Create an admin user
+POST http://localhost:8083/api/auth/register
+Content-Type: application/json
+
+{
+  "dni": "87654321",
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "password": "321",
+  "email": "jua@email.com",
+  "telefono": "987654321",
+  "role_id": 2
+}
+
+<> 2025-12-09T212611.200.json

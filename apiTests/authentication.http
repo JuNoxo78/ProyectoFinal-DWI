@@ -1,0 +1,196 @@
+### ============================================
+### 🔐 AUTENTICACIÓN - Credenciales del Admin
+### ============================================
+### DNI: admin001
+### Password: admin123
+### Email: admin@cineapp.com
+### ============================================
+
+### 1. Login como ADMIN (Obtener Token)
+POST http://localhost:8083/api/auth/login
+Content-Type: application/json
+
+{
+  "dni": "admin001",
+  "password": "admin123"
+}
+
+> {%
+    client.global.set("authToken", response.body.token);
+    client.log("Token guardado: " + response.body.token);
+%}
+
+### ============================================
+### 👥 USUARIOS - Endpoints protegidos
+### ============================================
+
+### 2. Obtener todos los usuarios (Requiere rol ADMIN)
+GET http://localhost:8083/api/usuarios
+Authorization: Bearer {{authToken}}
+
+### 3. Obtener un usuario específico por ID (Requiere ADMIN o USER)
+GET http://localhost:8083/api/usuarios/1
+Authorization: Bearer {{authToken}}
+
+### 4. Crear nuevo usuario (Requiere rol ADMIN)
+POST http://localhost:8083/api/usuarios
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "dni": "12345678",
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "password": "password123",
+  "email": "juan@email.com",
+  "telefono": "987654321"
+}
+
+### 5. Actualizar usuario (Requiere ADMIN o USER)
+PUT http://localhost:8083/api/usuarios/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nombres": "Administrador Actualizado",
+  "apellidos": "Sistema Principal",
+  "email": "admin.updated@cineapp.com",
+  "telefono": "999888777",
+  "password": "newpassword123"
+}
+
+### 5b. Actualizar usuario sin cambiar contraseña
+PUT http://localhost:8083/api/usuarios/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nombres": "Juancho",
+  "apellidos": "Flores",
+  "email": "user@cineapp.com",
+  "telefono": "989999999"
+}
+
+### 6. Eliminar usuario (Requiere rol ADMIN)
+DELETE http://localhost:8083/api/usuarios/2
+Authorization: Bearer {{authToken}}
+
+### ============================================
+### 🎬 PELÍCULAS - Endpoints protegidos
+### ============================================
+
+### 7. Obtener todas las películas (Requiere autenticación)
+GET http://localhost:8083/api/peliculas
+Authorization: Bearer {{authToken}}
+
+### 8. Obtener una película específica
+GET http://localhost:8083/api/peliculas/1
+Authorization: Bearer {{authToken}}
+
+### 9. Crear nueva película (Requiere rol ADMIN)
+POST http://localhost:8083/api/peliculas
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Inception",
+  "descripcion": "Un ladrón que roba secretos corporativos",
+  "duracion": 148,
+  "genero": "Ciencia Ficción",
+  "clasificacion": "PG-13"
+}
+
+### 10. Actualizar película (Requiere rol ADMIN)
+PUT http://localhost:8083/api/peliculas/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Inception - Director's Cut",
+  "descripcion": "Un ladrón que roba secretos corporativos - Versión extendida",
+  "duracion": 160,
+  "genero": "Ciencia Ficción",
+  "clasificacion": "PG-13"
+}
+
+### 11. Eliminar película (Requiere rol ADMIN)
+DELETE http://localhost:8083/api/peliculas/1
+Authorization: Bearer {{authToken}}
+
+### ============================================
+### 📝 REGISTRO DE USUARIOS NUEVOS
+### ============================================
+
+### 12. Registrar nuevo usuario (Público - se asigna rol USER automáticamente)
+POST http://localhost:8083/api/auth/register
+Content-Type: application/json
+
+{
+  "dni": "98765432",
+  "nombres": "María",
+  "apellidos": "González",
+  "password": "maria123",
+  "email": "maria@email.com",
+  "telefono": "912345678"
+}
+
+> {%
+    client.global.set("userToken", response.body.token);
+    client.log("Token de usuario guardado: " + response.body.token);
+%}
+
+### 13. Login como usuario normal (ROL USER)
+POST http://localhost:8083/api/auth/login
+Content-Type: application/json
+
+{
+  "dni": "98765432",
+  "password": "maria123"
+}
+
+### ============================================
+### ❌ PRUEBAS DE AUTORIZACIÓN (Sin token o con rol incorrecto)
+### ============================================
+
+### 14. Intentar acceder sin token (Debe fallar con 401/403)
+GET http://localhost:8083/api/usuario
+
+### 15. Intentar ver usuarios con rol USER (Debe fallar con 403)
+GET http://localhost:8083/api/usuarios
+Authorization: Bearer {{userToken}}
+
+### 16. Intentar crear película con rol USER (Debe fallar con 403)
+POST http://localhost:8083/api/peliculas
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Test Movie",
+  "descripcion": "Test",
+  "duracion": 120,
+  "genero": "Drama",
+  "clasificacion": "PG"
+}
+
+### ============================================
+### 🔄 FUNCIONES Y RESERVAS (Ejemplos)
+### ============================================
+
+### 17. Obtener todas las funciones
+GET http://localhost:8083/api/funciones
+Authorization: Bearer {{authToken}}
+
+### 18. Obtener todas las reservas
+GET http://localhost:8083/api/reservas
+Authorization: Bearer {{authToken}}
+
+### ============================================
+### 📊 NOTAS
+### ============================================
+### - El token se guarda automáticamente en {{authToken}}
+### - Asegúrate de ejecutar primero el login (request #1)
+### - Los endpoints protegidos necesitan el header Authorization
+### - Rol ADMIN: Tiene acceso completo
+### - Rol USER: Acceso limitado (solo lectura en algunos endpoints)
+### ============================================
+
