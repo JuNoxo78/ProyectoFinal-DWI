@@ -43,11 +43,11 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         // Crear usuario ADMIN por defecto si no existe
-        if (!usuarioRepository.existsByDni("admin001")) {
+        if (!usuarioRepository.existsByDni("72134465")) {
             Usuario admin = new Usuario();
-            admin.setDni("admin001");
-            admin.setNombres("Administrador");
-            admin.setApellidos("Sistema");
+            admin.setDni("72134465");
+            admin.setNombres("Lucho");
+            admin.setApellidos("Chirinos");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setEmail("admin@cineapp.com");
             admin.setTelefono("999999999");
@@ -60,7 +60,7 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("========================================");
             System.out.println("✅ Usuario ADMIN creado exitosamente");
             System.out.println("========================================");
-            System.out.println("DNI: admin001");
+            System.out.println("DNI: 72134465");
             System.out.println("Password: admin123");
             System.out.println("Email: admin@cineapp.com");
             System.out.println("========================================");

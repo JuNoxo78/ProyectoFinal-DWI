@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Películas en Cartelera - Cineplanet</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/peliculas.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/img/cineplanet.svg" alt="Cineplanet Logo" class="navbar-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-4 align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/peliculas">Películas</a>
+                    </li>
+                    <!-- Mostrar solo si está logueado como USER -->
+                    <li class="nav-item" id="navTusReservas" style="display: none;">
+                        <a class="nav-link" href="#tus-reservas">Tus Reservas</a>
+                    </li>
+                    <!-- Mostrar si NO está logueado -->
+                    <li class="nav-item ms-3" id="btnUnete">
+                        <a href="/login" class="btn btn-login">
+                            <i class="bi bi-person"></i> Únete
+                        </a>
+                    </li>
+                    <!-- Mostrar si SÍ está logueado como USER -->
+                    <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1" style="font-size: 1.5rem;"></i>
+                            <span id="userNameDisplay"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" onclick="SessionManager.logout(); return false;">
+                                <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Películas Page Content -->
+    <section class="peliculas-page">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Películas</h1>
+                <div class="page-tabs">
+                    <button class="tab-btn active" data-tab="cartelera">En cartelera</button>
+                    <button class="tab-btn" data-tab="proximos">Próximos estrenos</button>
+                </div>
+            </div>
+
+            <!-- Movies Grid -->
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Loading spinner -->
+                <div class="text-center w-100 py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Session Manager (debe ir primero) -->
+    <script src="/js/session-manager.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/peliculas.js"></script>
+</body>
+</html>
+

@@ -2,31 +2,59 @@ package org.example.proyectofinaldwi.controller;
 
 import org.example.proyectofinaldwi.model.Funcion;
 import org.example.proyectofinaldwi.service.FuncionService;
+import org.example.proyectofinaldwi.service.PeliculaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/funciones")
 public class FuncionController {
 
     private final FuncionService funcionService;
+    private final PeliculaService peliculaService;
 
-    public FuncionController(FuncionService funcionService) {
+    public FuncionController(FuncionService funcionService, PeliculaService peliculaService) {
         this.funcionService = funcionService;
+        this.peliculaService = peliculaService;
     }
 
     @GetMapping
-    public List<Funcion> getAllFunciones() {
-        return funcionService.findAll();
+    public List<Map<String, Object>> getAllFunciones() {
+        return funcionService.findAll().stream()
+                .map(this::funcionToMap)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Funcion> getFuncionById(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getFuncionById(@PathVariable Long id) {
         return funcionService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(this::funcionToMap)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    private Map<String, Object> funcionToMap(Funcion funcion) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("funcionId", funcion.getFuncionId());
+        map.put("fecha", funcion.getFecha());
+        map.put("horario", funcion.getHorario());
+        map.put("numeroSala", funcion.getNumeroSala());
+        map.put("peliculaId", funcion.getPeliculaId());
+
+        // Cargar película si existe
+        peliculaService.findById(funcion.getPeliculaId()).ifPresent(pelicula -> {
+            Map<String, Object> peliculaMap = new HashMap<>();
+            peliculaMap.put("peliculaId", pelicula.getPeliculaId());
+            peliculaMap.put("nombre", pelicula.getNombre());
+            map.put("pelicula", peliculaMap);
+        });
+
+        return map;
     }
 
     @PostMapping

@@ -47,16 +47,13 @@ Content-Type: application/json
 }
 
 ### 5. Actualizar usuario (Requiere ADMIN o USER)
-PUT http://localhost:8083/api/usuarios/1
+PUT http://localhost:8083/api/usuarios/5
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "nombres": "Administrador Actualizado",
-  "apellidos": "Sistema Principal",
-  "email": "admin.updated@cineapp.com",
-  "telefono": "999888777",
-  "password": "newpassword123"
+  "nombres": "Lucho",
+  "apellidos": "Chirinos"
 }
 
 ### 5b. Actualizar usuario sin cambiar contraseña

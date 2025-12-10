@@ -32,6 +32,14 @@ public class UsuarioController {
             .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/dni/{dni}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')") // ADMIN o USER pueden buscar por DNI
+    public ResponseEntity<Usuario> getUsuarioByDni(@PathVariable String dni) {
+        return usuarioService.findByDni(dni)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')") // Solo ADMIN puede crear usuarios directamente
     public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {

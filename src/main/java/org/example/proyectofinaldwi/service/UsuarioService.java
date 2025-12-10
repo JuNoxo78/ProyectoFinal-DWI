@@ -1,6 +1,8 @@
 package org.example.proyectofinaldwi.service;
 
+import org.example.proyectofinaldwi.model.Role;
 import org.example.proyectofinaldwi.model.Usuario;
+import org.example.proyectofinaldwi.repository.RoleRepository;
 import org.example.proyectofinaldwi.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -25,6 +29,10 @@ public class UsuarioService {
 
     public Optional<Usuario> findById(Long id) {
         return usuarioRepository.findById(id);
+    }
+
+    public Optional<Usuario> findByDni(String dni) {
+        return usuarioRepository.findByDni(dni);
     }
 
     public Usuario save(Usuario usuario) {
@@ -39,6 +47,17 @@ public class UsuarioService {
             // Encriptar contraseña si viene en texto plano
             if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
                 usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            }
+            // Asignar rol desde la base de datos
+            if (usuario.getRole() != null && usuario.getRole().getName() != null) {
+                Role role = roleRepository.findByName(usuario.getRole().getName())
+                        .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + usuario.getRole().getName()));
+                usuario.setRole(role);
+            } else {
+                // Si no se especifica rol, asignar USER por defecto
+                Role defaultRole = roleRepository.findByName("USER")
+                        .orElseThrow(() -> new RuntimeException("Rol USER no encontrado en la base de datos"));
+                usuario.setRole(defaultRole);
             }
         }
         return usuarioRepository.save(usuario);
@@ -69,8 +88,14 @@ public class UsuarioService {
         if (usuario.getEstado() != null) {
             usuarioExistente.setEstado(usuario.getEstado());
         }
+        if (usuario.getRole() != null && usuario.getRole().getName() != null) {
+            // Buscar el rol en la base de datos
+            Role role = roleRepository.findByName(usuario.getRole().getName())
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + usuario.getRole().getName()));
+            usuarioExistente.setRole(role);
+        }
 
-        // NO actualizar: role, dni, fechaRegistro (son inmutables)
+        // NO actualizar: dni, fechaRegistro (son inmutables)
 
         return usuarioRepository.save(usuarioExistente);
     }
